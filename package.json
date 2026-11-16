@@ -1,0 +1,11 @@
+{
+  "name": "orpheus",
+  "private": true,
+  "description": "Learn guitar songs from YouTube lessons.",
+  "scripts": {
+    "test": "node tests/e2e.js"
+  },
+  "devDependencies": {
+    "playwright-core": "^1.65.1"
+  }
+}

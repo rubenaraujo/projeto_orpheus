@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Orpheus</title>
+<link rel="icon" type="image/png" href="logo.png">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="theme-color" content="#0a0a0b">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z"/></symbol>
+    <symbol id="i-pause" viewBox="0 0 24 24"><path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z"/></symbol>
+    <symbol id="i-note" viewBox="0 0 24 24"><path d="M7 3h8l4 4v14H7zM15 3v4h4M10 12h6M10 16h6"/></symbol>
+    <symbol id="i-merge" viewBox="0 0 24 24"><path d="M6 4v3a6 6 0 0 0 6 6M18 4v3a6 6 0 0 1-6 6M12 13v7M9 17l3 3 3-3"/></symbol>
+    <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v6M14 11v6"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="i-spark" viewBox="0 0 24 24"><path d="M11 3l1.9 5.1L18 10l-5.1 1.9L11 17l-1.9-5.1L4 10l5.1-1.9zM19 15v5M16.5 17.5h5"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></symbol>
+    <symbol id="i-expand" viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></symbol>
+    <symbol id="i-shrink" viewBox="0 0 24 24"><path d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5"/></symbol>
+    <symbol id="i-prev" viewBox="0 0 24 24"><path d="M6 5v14M19 5l-10 7 10 7z"/></symbol>
+    <symbol id="i-next" viewBox="0 0 24 24"><path d="M18 5v14M5 5l10 7-10 7z"/></symbol>
+    <symbol id="i-vol" viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9zM16.5 8.5a5 5 0 0 1 0 7"/></symbol>
+    <symbol id="i-mute" viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9zM17 9l5 6M22 9l-5 6"/></symbol>
+    <symbol id="i-loop" viewBox="0 0 24 24"><path d="M4 12a8 8 0 0 1 14-5.3M20 4v4h-4M20 12a8 8 0 0 1-14 5.3M4 20v-4h4"/></symbol>
+    <symbol id="i-split" viewBox="0 0 24 24"><path d="M12 3v18M7 8l-4 4 4 4M17 8l4 4-4 4"/></symbol>
+    <symbol id="i-side" viewBox="0 0 24 24"><path d="M4 5h16v14H4zM14 5v14"/></symbol>
+    <symbol id="i-focus" viewBox="0 0 24 24"><path d="M4 8V5h3M17 5h3v3M20 16v3h-3M7 19H4v-3M9.5 9.5h5v5h-5z"/></symbol>
+    <symbol id="i-chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-grip" viewBox="0 0 24 24"><path d="M9 6h.01M15 6h.01M9 12h.01M15 12h.01M9 18h.01M15 18h.01"/></symbol>
+  </defs>
+</svg>
+
+<header>
+  <div class="brand"><img src="logo.png" alt="" width="24" height="24"><span>Orpheus</span></div>
+  <div class="urlbar">
+    <input type="text" id="url" placeholder="Cola um link ou pesquisa uma música (ex.: wonderwall)" aria-label="Link do YouTube ou pesquisa" autocomplete="off" spellcheck="false">
+    <button id="load" aria-label="Carregar ou pesquisar"><svg class="i"><use href="#i-arrow"/></svg></button>
+    <div class="recent" id="recent"></div>
+  </div>
+  <div class="seg-ctl" id="langCtl" role="group" aria-label="Language"><button data-l="en">EN</button><button data-l="pt">PT</button></div>
+  <button class="ghost mono" id="helpBtn" aria-label="Atalhos de teclado" title="Atalhos de teclado (?)">?</button>
+</header>
+
+<main>
+  <section class="card srv" id="srv">
+    <b>Servidor de análise desligado</b>
+    <span>A análise automática e a pesquisa precisam do servidor local. Abre o terminal na pasta do projeto e corre:</span>
+    <code>.venv/bin/python server.py</code>
+    <div class="row2"><button class="ghost" id="srvCopy">Copiar comando</button><button class="ghost" id="srvRetry">Tentar de novo</button></div>
+  </section>
+  <section class="card results" id="results">
+    <div class="res-head">
+      <h2>Resultados</h2>
+      <div class="chips" role="group" aria-label="Filtros de qualidade">
+        <button class="chip" data-f="structure">Secções do autor</button>
+        <button class="chip" data-f="hd">1080p+</button>
+        <button class="chip" data-f="chords">Acordes</button>
+      </div>
+      <button class="icon" id="resClose" aria-label="Fechar resultados"><svg class="i"><use href="#i-x"/></svg></button>
+    </div>
+    <div class="res-msg" id="resMsg" data-dyn></div>
+    <div class="res-list" id="resList"></div>
+  </section>
+  <div class="col">
+    <div class="stage" id="stage">
+    <div class="player" id="playerBox">
+      <div class="ph"><div class="onb">
+        <h3>Aprende uma música, uma secção de cada vez</h3>
+        <div class="steps">
+          <div class="step"><b>1</b><span>Cola um link do YouTube ou pesquisa uma música</span></div>
+          <div class="step"><b>2</b><span>Divide o vídeo em secções, automaticamente ou à mão</span></div>
+          <div class="step"><b>3</b><span>Repete, abranda e marca o que já dominas</span></div>
+        </div>
+        <div class="ex" id="onbEx"><button class="chip" data-q="wonderwall">Wonderwall</button><button class="chip" data-q="hotel california">Hotel California</button><button class="chip" data-q="knockin on heavens door">Knockin' on Heaven's Door</button></div>
+      </div></div>
+      <div id="yt"></div>
+      <div class="shield" id="shield"></div>
+      <div id="count"></div>
+    </div>
+    <div class="fsbar" id="fsbar">
+      <div class="timeline fst" id="fsTimeline"><div class="loopSel" id="fsLoopSel"></div><div class="head" id="fsHead"></div></div>
+      <div class="fsrow">
+        <button class="icon" id="fsPrev" aria-label="Secção anterior" title="Secção anterior (P)"><svg class="i"><use href="#i-prev"/></svg></button>
+        <button class="playbtn sm" id="fsPlay" data-dyn aria-label="Play"><svg class="i"><use href="#i-play"/></svg></button>
+        <button class="icon" id="fsNext" aria-label="Secção seguinte" title="Secção seguinte (N)"><svg class="i"><use href="#i-next"/></svg></button>
+        <button class="ghost solid" id="fsPlaySel" title="Tocar as secções selecionadas, em sequência">Tocar selecionadas</button>
+        <span class="clock" id="fsTime" data-dyn><b>0:00</b> / 0:00</span>
+        <span class="grow"></span>
+        <button class="icon" id="fsMute" aria-label="Silenciar"><svg class="i"><use href="#i-vol"/></svg></button>
+        <input type="range" id="fsVol" min="0" max="100" value="100" aria-label="Volume" style="width:84px">
+        <div class="seg-ctl"><button data-r="0.5">0.5×</button><button data-r="0.75">0.75×</button><button data-r="1" class="on">1×</button></div>
+        <button class="switch" id="fsLoop" aria-pressed="false">Repetir</button>
+        <button class="ghost" id="fsExit"><svg class="i"><use href="#i-shrink"/></svg>Sair</button>
+      </div>
+      <div class="fschips" id="fsChips"></div>
+    </div>
+    </div>
+
+    <div class="card transport">
+      <div class="tlhead">
+        <span class="curSec" id="curSec" data-dyn></span>
+        <div class="zoom" role="group" aria-label="Zoom da timeline">
+          <button class="ghost" id="zSec" title="Aproximar à secção ativa ou ao intervalo (Z)">Ver secção</button>
+          <button class="ghost" id="zOut" aria-label="Afastar" title="Afastar">−</button>
+          <span id="zLbl" data-dyn>1×</span>
+          <button class="ghost" id="zIn" aria-label="Aproximar" title="Aproximar (Ctrl + roda do rato)">+</button>
+        </div>
+      </div>
+      <div class="timeline" id="timeline"><div class="hov" id="hov"></div><div class="loopSel" id="loopSel"></div><div class="head" id="head"></div></div>
+      <div class="zmap" id="zmap" hidden><i id="zwin"></i></div>
+      <div class="fschips pchips" id="pChips"></div>
+
+      <div class="bar">
+        <button class="playbtn" id="play" data-dyn aria-label="Play"><svg class="i"><use href="#i-play"/></svg></button>
+        <button class="icon" id="prev" aria-label="Secção anterior" title="Secção anterior (P)"><svg class="i"><use href="#i-prev"/></svg></button>
+        <button class="icon" id="next" aria-label="Secção seguinte" title="Secção seguinte (N)"><svg class="i"><use href="#i-next"/></svg></button>
+        <span class="clock" id="time" data-dyn><b>0:00</b> / 0:00</span>
+        <span class="grow"></span>
+        <button class="icon" id="mute" aria-label="Silenciar" title="Silenciar (M)"><svg class="i"><use href="#i-vol"/></svg></button>
+        <input type="range" id="vol" min="0" max="100" value="100" aria-label="Volume" style="width:84px">
+        <button class="ghost mono" id="back">−5s</button>
+        <button class="ghost mono" id="fwd">+5s</button>
+        <button class="icon" id="sideBtn" aria-pressed="false" title="Mostrar/esconder o painel de secções (B)" aria-label="Painel de secções"><svg class="i"><use href="#i-side"/></svg></button>
+        <button class="icon" id="focusBtn" aria-pressed="false" title="Modo prática (V)" aria-label="Modo prática"><svg class="i"><use href="#i-focus"/></svg></button>
+        <button class="icon" id="fs" aria-label="Ecrã inteiro" title="Ecrã inteiro (F)"><svg class="i"><use href="#i-expand"/></svg></button>
+      </div>
+
+      <div class="controls">
+        <div class="field">
+          <span class="lbl">Intervalo</span>
+          <div class="inline">
+            <input type="number" id="a" step="0.1" min="0" value="0" aria-label="Início em segundos">
+            <button class="ghost" id="setA" title="Marcar início (I)">Marcar</button>
+          </div>
+          <div class="inline">
+            <input type="number" id="b" step="0.1" min="0" value="0" aria-label="Fim em segundos">
+            <button class="ghost" id="setB" title="Marcar fim (O)">Marcar</button>
+          </div>
+        </div>
+        <div class="field">
+          <span class="lbl">Velocidade</span>
+          <div class="seg-ctl"><button data-r="0.5">0.5×</button><button data-r="0.75">0.75×</button><button data-r="1" class="on">1×</button></div>
+          <div class="inline"><input type="range" id="rate" min="0.25" max="1.5" step="0.05" value="1" aria-label="Velocidade"><span class="rate" id="rateLbl" data-dyn>1.00×</span></div>
+        </div>
+        <div class="field">
+          <span class="lbl">Prática</span>
+          <div class="switches" style="flex-direction:column;gap:6px">
+            <button class="switch" id="loop" aria-pressed="false">Repetir intervalo</button>
+            <button class="switch" id="countBtn" aria-pressed="false">Contagem 3·2·1</button>
+            <button class="switch" id="ccBtn" aria-pressed="false">Legendas</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <details class="card desc" id="desc">
+      <summary><span>Descrição do vídeo</span><span class="tg"><span class="t-show">Mostrar</span><span class="t-hide">Ocultar</span><svg class="i"><use href="#i-chev"/></svg></span></summary>
+      <div class="descBody" id="descBody" data-dyn></div>
+    </details>
+
+  </div>
+
+  <aside>
+    <section class="card panel">
+      <div class="ph-head">
+        <h2>Secções</h2><span class="count" id="cnt" data-dyn>0</span>
+        <span class="grow" style="flex:1"></span>
+        <button class="icon" id="save" title="Guardar intervalo atual (S)" aria-label="Guardar intervalo atual"><svg class="i"><use href="#i-plus"/></svg></button>
+        <button class="icon" id="split" title="Dividir a secção no ponto atual (D)" aria-label="Dividir a secção no ponto atual"><svg class="i"><use href="#i-split"/></svg></button>
+        <button class="icon danger" id="clear" title="Limpar todas" aria-label="Limpar todas as secções"><svg class="i"><use href="#i-trash"/></svg></button>
+      </div>
+      <div class="mastery" id="mastery" data-dyn></div>
+      <div class="tools">
+        <div class="row2">
+          <button class="ghost solid" id="playSel">Tocar selecionadas</button>
+          <button class="ghost" id="selAll" data-dyn>Todas</button>
+        </div>
+        <button class="cta" id="auto"><svg class="i"><use href="#i-spark"/></svg>Dividir automaticamente</button>
+        <div class="msg" id="autoMsg" data-dyn></div>
+        <div class="sens" id="sensRow" hidden><span>Menos secções</span><input type="range" id="sens" min="0" max="100" value="50" aria-label="Sensibilidade da análise"><span>Mais</span></div>
+        <details>
+          <summary>Colar tempos da descrição</summary>
+          <div class="paste">
+            <textarea id="ts" rows="5" placeholder="0:00 Intro&#10;0:32 Verso&#10;1:15 Refrão"></textarea>
+            <button class="ghost" id="parse">Criar secções</button>
+          </div>
+        </details>
+        <details>
+          <summary>Partilhar e backup</summary>
+          <div class="paste">
+            <div class="row2"><button class="ghost" id="shareLink">Copiar link</button><button class="ghost" id="expAll">Exportar tudo</button><button class="ghost" id="impAll">Importar</button></div>
+            <span class="syncMsg" id="syncMsg" data-dyn></span>
+            <span class="msg">O link também funciona colado na barra de pesquisa, noutro computador.</span>
+            <input type="file" id="impFile" accept="application/json,.json" hidden>
+          </div>
+        </details>
+      </div>
+      <div style="overflow:auto;min-height:0">
+        <ul id="list"></ul>
+        <div class="empty" id="empty">Sem secções. Divide automaticamente ou marca um intervalo e guarda.</div>
+      </div>
+    </section>
+  </aside>
+
+  <section class="lib-wrap">
+    <div class="lib-head">
+      <h2>Os teus vídeos</h2>
+      <input type="search" id="libQ" placeholder="Filtrar vídeos" aria-label="Filtrar vídeos" autocomplete="off">
+      <select id="libSort" aria-label="Ordenar vídeos"><option value="recent">Mais recentes</option><option value="name">Nome</option><option value="secs">Mais secções</option><option value="prog">Progresso</option></select>
+    </div>
+    <div class="lib" id="lib"></div>
+    <div class="lib-empty" id="libEmpty">Os vídeos com secções guardadas aparecem aqui.</div>
+    <div class="lib-empty" id="libNone" hidden>Nenhum vídeo corresponde.</div>
+  </section>
+</main>
+
+<footer class="foot"><small>developed by Ruben Araujo</small></footer>
+
+<div class="mbar" id="mbar">
+  <button class="icon" id="mPrev" aria-label="Secção anterior"><svg class="i"><use href="#i-prev"/></svg></button>
+  <button class="playbtn" id="mPlay" data-dyn aria-label="Play"><svg class="i"><use href="#i-play"/></svg></button>
+  <button class="icon" id="mNext" aria-label="Secção seguinte"><svg class="i"><use href="#i-next"/></svg></button>
+  <button class="icon" id="mLoop" aria-pressed="false" aria-label="Repetir"><svg class="i"><use href="#i-loop"/></svg></button>
+  <button class="ghost mono" id="mRate" data-dyn aria-label="Velocidade">1×</button>
+  <button class="icon" id="mSecs" aria-label="Secções"><svg class="i"><use href="#i-note"/></svg></button>
+</div>
+<div class="tlTip" id="tlTip"><div class="pv" id="tipPv"></div><span id="tipT"></span><small id="tipS"></small></div>
+
+<dialog id="keysDlg"><h3>Atalhos de teclado</h3>
+  <div class="kgrid">
+    <div><span><kbd>Espaço</kbd></span><span>play</span></div>
+    <div><span><kbd>←</kbd><kbd>→</kbd></span><span>±5s</span></div>
+    <div><span><kbd>I</kbd><kbd>O</kbd></span><span>início, fim</span></div>
+    <div><span><kbd>L</kbd></span><span>repetir</span></div>
+    <div><span><kbd>C</kbd></span><span>legendas</span></div>
+    <div><span><kbd>F</kbd></span><span>ecrã inteiro</span></div>
+    <div><span><kbd>M</kbd></span><span>silenciar</span></div>
+    <div><span><kbd>P</kbd><kbd>N</kbd></span><span>secção anterior, seguinte</span></div>
+    <div><span><kbd>S</kbd></span><span>guardar</span></div>
+    <div><span><kbd>D</kbd></span><span>dividir aqui</span></div>
+    <div><span><kbd>1</kbd>–<kbd>9</kbd></span><span>secção</span></div>
+    <div><span><kbd>[</kbd><kbd>]</kbd></span><span>velocidade</span></div>
+    <div><span><kbd>Z</kbd></span><span>zoom na secção</span></div>
+    <div><span><kbd>V</kbd></span><span>modo prática</span></div>
+    <div><span><kbd>B</kbd></span><span>painel de secções</span></div>
+    <div><span><kbd>?</kbd></span><span>atalhos</span></div>
+  </div>
+  <div class="dlgActs"><form method="dialog"><button class="ghost">Fechar</button></form></div>
+</dialog>
+
+<dialog id="dlg"><form method="dialog"><p id="dlgMsg" data-dyn></p><div class="dlgActs"><button class="ghost" value="cancel">Cancelar</button><button class="cta" value="ok" id="dlgYes" data-dyn>Confirmar</button></div></form></dialog>
+<div id="toasts" aria-live="polite"></div>
+
+<script src="js/core.js"></script>
+<script src="js/i18n.js"></script>
+<script src="js/state.js"></script>
+<script src="js/sync.js"></script>
+<script src="js/player.js"></script>
+<script src="js/timeline.js"></script>
+<script src="js/sections.js"></script>
+<script src="js/library.js"></script>
+<script src="js/playback.js"></script>
+<script src="js/share.js"></script>
+<script src="js/search.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
