@@ -216,7 +216,7 @@ def search(q, n=20):
 YTDLP_HINT = 'O YouTube recusou o pedido. Atualiza o yt-dlp: .venv/bin/python -m pip install -U yt-dlp'
 DATA = os.path.join(ROOT, 'data.json')
 # só estes ficheiros (e js/*.js) são servidos; não expõe server.py nem data.json
-STATIC = {'index.html', 'styles.css', 'sw.js', 'manifest.webmanifest', 'logo.png', 'icon-192.png', 'icon-512.png'}
+STATIC = {'index.html', 'styles.css', 'sw.js', 'manifest.webmanifest', 'logo.png', 'mark.png', 'icon-192.png', 'icon-512.png'}
 DATA_LOCK = threading.Lock()
 
 
