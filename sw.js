@@ -1,4 +1,4 @@
-const CACHE = 'orpheus-v3';
+const CACHE = 'orpheus-v4';
 const SHELL = ['./', 'index.html', 'styles.css', 'js/core.js', 'js/i18n.js', 'js/state.js', 'js/sync.js', 'js/player.js', 'js/timeline.js', 'js/sections.js', 'js/library.js', 'js/playback.js', 'js/share.js', 'js/search.js', 'js/main.js', 'logo.png', 'icon-192.png', 'icon-512.png', 'manifest.webmanifest'];
 const API = ['/analyze', '/search', '/info', '/store', '/health'];
 
