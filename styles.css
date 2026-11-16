@@ -19,7 +19,7 @@ svg.i { width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:1.
 /* shell */
 header { position:sticky; top:0; z-index:10; display:flex; align-items:center; gap:24px; height:60px; padding:0 28px; background:rgba(10,10,11,.8); backdrop-filter:blur(14px); border-bottom:1px solid var(--line); }
 .brand { display:flex; align-items:center; gap:10px; font-weight:600; letter-spacing:-.01em; font-size:15px; }
-.brand img { width:24px; height:24px; display:block; }
+.brand img { height:24px; width:auto; display:block; }
 .urlbar { margin-left:auto; flex:0 1 560px; display:flex; align-items:center; background:var(--s1); border:1px solid var(--line); border-radius:999px; padding:4px 4px 4px 18px; transition:border-color .15s; }
 .urlbar:focus-within { border-color:var(--accent-line); }
 .urlbar input { flex:1; min-width:0; background:none; border:0; outline:0; padding:6px 0; }
