@@ -1,5 +1,5 @@
-const CACHE = 'orpheus-v5';
-const SHELL = ['./', 'index.html', 'styles.css', 'js/core.js', 'js/i18n.js', 'js/state.js', 'js/sync.js', 'js/player.js', 'js/timeline.js', 'js/sections.js', 'js/library.js', 'js/playback.js', 'js/share.js', 'js/search.js', 'js/main.js', 'logo.png', 'mark.png', 'icon-192.png', 'icon-512.png', 'manifest.webmanifest'];
+const CACHE = 'orpheus-v6';
+const SHELL = ['./', 'index.html', 'styles.css', 'js/core.js', 'js/i18n.js', 'js/state.js', 'js/sync.js', 'js/player.js', 'js/timeline.js', 'js/sections.js', 'js/library.js', 'js/playback.js', 'js/share.js', 'js/search.js', 'js/main.js', 'logo.png', 'mark.png', 'favicon.png', 'icon-192.png', 'icon-512.png', 'manifest.webmanifest'];
 const API = ['/analyze', '/search', '/info', '/store', '/health'];
 
 self.addEventListener('install', e => {
